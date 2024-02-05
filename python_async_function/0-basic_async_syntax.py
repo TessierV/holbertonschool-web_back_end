@@ -9,6 +9,7 @@ function wait_random
 :return: delay in float
 """
 
+
 async def wait_random(max_delay: int = 10) -> float:
     """
     function wait_random
