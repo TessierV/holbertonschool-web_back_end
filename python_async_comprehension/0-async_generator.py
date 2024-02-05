@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-import asyncio
-import random
-from typing import Generator
 """
 async_generator
 :n: int
 :max: 10
 """
+import asyncio
+import random
+from typing import Generator
 
 
-async def async_generator():
+async def async_generator() -> Generator[float, None, None]:
     """
     async_generator
     :generator: float, none, none
