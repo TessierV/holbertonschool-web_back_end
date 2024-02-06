@@ -17,12 +17,12 @@ class FIFOCache(BaseCaching):
         Put
         """
         if key is not None and item is not None:
+            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+                discard = self.order[0]
+                del self.cache_data[discard]
+                print("DISCARD: {}".format(discard))
             self.cache_data[key] = item
-
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            discard = self.order[0]
-            del self.cache_data[discard]
-            print("DISCARD: {}".format(discard))
+            self.order.append(key)
 
     def get(self, key):
         """
