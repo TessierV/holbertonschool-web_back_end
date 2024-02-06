@@ -34,9 +34,4 @@ class LRUCache(BaseCaching):
         Get
         :return: cache_data
         """
-        if key is not None and key in self.cache_data:
-            self.order_used.remove(key)
-            self.order_used.append(key)
-            return self.cache_data[key]
-        return None
-
+        return self.cache_data.get(key, None)
