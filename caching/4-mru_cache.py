@@ -32,8 +32,8 @@ class MRUCache(BaseCaching):
 
         while len(self.cache_data) > BaseCaching.MAX_ITEMS:
             discard_key = min(self.timesKey, key=self.timesKey.get)
-            self.cache_data.pop(discard_key)
-            self.timesKey.pop(discard_key)
+            del self.cache_data[discard_key]
+            del self.timesKey[discard_key]
 
             print("DISCARD:", discard_key)
 
@@ -44,8 +44,5 @@ class MRUCache(BaseCaching):
         """
         if key is None or key not in self.cache_data:
             return None
-
-        self.timesKey[key] = self.time
-        self.time += 1
 
         return self.cache_data[key]
