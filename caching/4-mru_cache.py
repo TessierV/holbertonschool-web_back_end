@@ -26,9 +26,9 @@ class MRUCache(BaseCaching):
         """
         if key is not None and item is not None:
             self.timesKey[key] = self.time
-            self.time += 1
 
             self.cache_data[key] = item
+        self.time += 1
 
         while len(self.cache_data) > BaseCaching.MAX_ITEMS:
             discard_key = min(self.timesKey, key=self.timesKey.get)
