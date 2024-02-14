@@ -47,6 +47,9 @@ class MRUCache(BaseCaching):
         get the cache item value
         :return: cache_data value
         """
+        if key is None or key not in self.cache_data:
+            return None
+
         self.timesKey[key] = self.time
         self.time += 1
 
