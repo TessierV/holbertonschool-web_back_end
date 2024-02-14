@@ -34,6 +34,7 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """
         get the cache item value
+        :return: cache_data value
         """
         if key is None or key not in self.cache_data:
             return None
