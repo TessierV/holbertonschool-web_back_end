@@ -45,4 +45,7 @@ class MRUCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
+        self.timesKey[key] = self.time
+        self.time += 1
+
         return self.cache_data[key]
