@@ -30,7 +30,13 @@ class MRUCache(BaseCaching):
             self.cache_data[key] = item
 
         while len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            discard_key = min(self.timesKey, key=self.timesKey.get)
+            discard_key = None
+            newer = self.time - 2
+
+            for _key, _value in self.timesKey.items():
+                if newer == _value:
+                    discard_key = _key
+                    break
             del self.cache_data[discard_key]
             del self.timesKey[discard_key]
 
