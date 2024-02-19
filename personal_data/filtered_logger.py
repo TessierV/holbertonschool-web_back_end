@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Main file
+"""
 import re
 import logging
 
