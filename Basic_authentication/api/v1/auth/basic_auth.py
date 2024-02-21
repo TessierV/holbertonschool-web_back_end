@@ -2,6 +2,7 @@
 """ Basic Authentication
 """
 import base64
+from base64 import b64decode
 import binascii
 from typing import TypeVar
 from api.v1.auth.auth import Auth
@@ -38,11 +39,13 @@ class BasicAuth(Auth):
             return None
 
         try:
-            decoded_bytes = base64.b64decode(base64_authorization_header)
-            decoded_str = decoded_bytes.decode('utf-8')
-            return decoded_str
-        except binascii.Error:
+            encoded = base64_authorization_header.encode('utf-8')
+            decoded64 = b64decode(encoded)
+            decoded = decoded64.decode('utf-8')
+        except BaseException:
             return None
+
+        return decoded
 
     def extract_user_credentials(
         self, decoded_base64_authorization_header: str
