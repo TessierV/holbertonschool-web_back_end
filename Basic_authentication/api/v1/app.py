@@ -13,23 +13,19 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
-# Add a new endpoint to raise a 401 error
+
 @app.errorhandler(401)
 def unauthorized_error(error) -> str:
-    """ Unauthorized handler
-    """
+    """ Unauthorized handler """
     return jsonify({"error": "Unauthorized"}), 401
 
 
-# Add a new endpoint to raise a 403 error
 @app.errorhandler(403)
 def forbidden_error(error) -> str:
-    """ Forbidden handler
-    """
+    """ Forbidden handler """
     return jsonify({"error": "Forbidden"}), 403
 
 
-# Add a new endpoint to raise a 404 error
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
