@@ -2,7 +2,6 @@
 """ Basic Authentication
 """
 import base64
-from base64 import b64decode
 import binascii
 from typing import TypeVar
 from api.v1.auth.auth import Auth
@@ -39,13 +38,11 @@ class BasicAuth(Auth):
             return None
 
         try:
-            encoded = base64_authorization_header.encode('utf-8')
-            decoded64 = b64decode(encoded)
-            decoded = decoded64.decode('utf-8')
-        except BaseException:
+            decoded_bytes = base64.b64decode(base64_authorization_header)
+            decoded_str = decoded_bytes.decode('utf-8')
+            return decoded_str
+        except binascii.Error:
             return None
-
-        return decoded
 
     def extract_user_credentials(
         self, decoded_base64_authorization_header: str
@@ -86,21 +83,19 @@ class BasicAuth(Auth):
     def current_user(self, request=None
     ) -> TypeVar('User'):
         """ overloads """
+    if request is None:
+        return None
 
-        if not self.authorization_header(request):
-            return None
+    auth_header = request.headers.get('Authorization')
+    if not auth_header or not auth_header.startswith('Basic '):
+        return None
 
-        if not self.extract_base64_authorization_header(auth_header):
-            return None
+    decoded_credentials = self.decode_base64_authorization_header(auth_header.split(" ")[1])
+    if not decoded_credentials or ':' not in decoded_credentials:
+        return None
 
-        if not self.decode_base64_authorization_header(encoded):
-            return None
+    user_email, user_pwd = decoded_credentials.split(':', 1)
+    if not user_email or not user_pwd:
+        return None
 
-        email, pwd = self.extract_user_credentials(decoded)
-
-        if not email or not pwd:
-            return None
-
-        user = self.user_object_from_credentials(email, pwd)
-
-        return user
+    return self.user_object_from_credentials(user_email, user_pwd)
