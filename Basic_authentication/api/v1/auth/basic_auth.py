@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """ Basic Authentication
 """
+import base64
+import binascii
 from api.v1.auth.auth import Auth
 
 
@@ -22,7 +24,6 @@ class BasicAuth(Auth):
 
         base64_part = authorization_header.split(" ")[1]
         return base64_part
-
 
     def decode_base64_authorization_header(
         self, base64_authorization_header: str
