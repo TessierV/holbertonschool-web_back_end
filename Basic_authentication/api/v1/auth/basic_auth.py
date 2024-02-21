@@ -90,7 +90,8 @@ class BasicAuth(Auth):
         if not auth_header or not auth_header.startswith('Basic '):
             return None
 
-        decoded_credentials = self.decode_base64_authorization_header(auth_header.split(" ")[1])
+        decoded_credentials = self.decode_base64_authorization_header(
+            auth_header.split(" ")[1])
         if not decoded_credentials or ':' not in decoded_credentials:
             return None
 
