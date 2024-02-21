@@ -80,8 +80,7 @@ class BasicAuth(Auth):
 
         return found_users[0]
 
-    def current_user(self, request=None
-    ) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar('User'):
         """ overloads """
         if request is None:
             return None
