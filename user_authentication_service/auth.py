@@ -3,7 +3,6 @@
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
-from typing import TypeVar
 from user import User
 
 
@@ -19,7 +18,7 @@ class Auth:
         """ init """
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> TypeVar('User'):
+    def register_user(self, email: str, password: str) -> User:
         """ regiter object """
         try:
             user = self._db.find_user_by(email=email)
