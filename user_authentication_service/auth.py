@@ -85,9 +85,9 @@ class Auth:
 
     @app.route('/reset_password', methods=['POST'], strict_slashes=False)
     def get_reset_password_token() -> str:
-        """ reset password """
-        email = request.form.get('email')
-        token = AUTH.get_reset_password_token(email)
-        if token is None or email is None:
+        try:
+            email = request.form.get('email')
+            token = AUTH.get_reset_password_token(email)
+            return jsonify({"email": email, "reset_token": token}), 200
+        except ValueError:
             abort(403)
-        return jsonify({"email": email, "reset_token": token}), 200
