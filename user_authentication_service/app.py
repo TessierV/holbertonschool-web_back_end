@@ -11,6 +11,7 @@ def welcome():
     """ return a JSON """
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
     """ Register user """
