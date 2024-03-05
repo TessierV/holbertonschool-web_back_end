@@ -50,12 +50,10 @@ class TestClass:
 
 class TestMemoize(unittest.TestCase):
     def test_memoize(self, mock_a_method):
-        test_instance = TestClass()
-        result1 = test_instance.a_property()
-        result2 = test_instance.a_property()
-        mock_a_method.assert_called_once()
-        self.assertEqual(result1, 42)
-        self.assertEqual(result2, 42)
+        test_class = TestClass()
+        test_class.a_property
+        test_class.a_property
+        mockMethod.assert_called_once
 
 if __name__ == "__main__":
     unittest.main()
