@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ unit test """
 import unittest
-from utils import access_nested_map
+from utils import access_nested_map, get_json
 from parameterized import parameterized
 
 
