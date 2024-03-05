@@ -52,11 +52,15 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 """ property """
                 return self.a_method()
-        with patch.object(TestClass, "a_method") as mockMethod:
+        with patch.object(
+                TestClass,
+                "a_method",
+                return_value=lambda: 42,
+                ) as memo_fxn:
             test_class = TestClass()
-            test_class.a_property
-            test_class.a_property
-            mockMethod.assert_called_once
+            self.assertEqual(test_class.a_property(), 42)
+            self.assertEqual(test_class.a_property(), 42)
+            memo_fxn.assert_called_once()
 
 if __name__ == "__main__":
     unittest.main()
