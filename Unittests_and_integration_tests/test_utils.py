@@ -1,29 +1,35 @@
 #!/usr/bin/env python3
-""" unit test """
+""" Module for testing utils """
+
 import unittest
 from unittest.mock import patch
+
+import requests
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """ testcase """
-    @parameterized.expand([
-        ({"a": 1}, ("a",), 1),
-        ({"a": {"b": 2}}, ("a",), {"b": 2}),
-        ({"a": {"b": 2}}, ("a", "b"), 2),
-    ])
-    def test_access_nested_map(self, nested_map, path, answer):
-        self.assertEqual(access_nested_map(nested_map, path), answer)
+    """ Class for Testing Access Nested Map """
 
     @parameterized.expand([
-        ({}, ("a",)),
-        ({"a": 1}, ("a", "b")),
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {'b': 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map_exception(self, nested_map, path):
-        with self.assertRaises(KeyError) as error:
+    def test_access_nested_map(self, nested_map, path, expected):
+        """ Test that the method returns what it is supposed to """
+        self.assertEqual(access_nested_map(nested_map, path), expected)
+
+    @parameterized.expand([
+        ({}, ("a",), 'a'),
+        ({"a": 1}, ("a", "b"), 'b')
+    ])
+    def test_access_nested_map_exception(self, nested_map, path, expected):
+        """ Test that a KeyError is raised for the respective inputs """
+        with self.assertRaises(KeyError) as e:
             access_nested_map(nested_map, path)
-        self.assertEqual(str(error.exception.args[0]), path[-1])
+        self.assertEqual(f"KeyError('{expected}')", repr(e.exception))
 
 
 class TestGetJson(unittest.TestCase):
@@ -42,8 +48,9 @@ class TestGetJson(unittest.TestCase):
         mock.assert_called_once()
         patcher.stop()
 
+
 class TestMemoize(unittest.TestCase):
-    """ TESTCASSE """
+    """ Class for Testing Memoize """
 
     def test_memoize(self):
         """ Test that when calling a_property twice, the correct result
@@ -68,6 +75,3 @@ class TestMemoize(unittest.TestCase):
             test_class.a_property()
             test_class.a_property()
             mock.assert_called_once()
-
-if __name__ == "__main__":
-    unittest.main()
