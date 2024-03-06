@@ -43,6 +43,7 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """ TESTCASE """
+    """ to test the function for following inputs """
     def test_memoize(self):
         class TestClass:
             """ class """
