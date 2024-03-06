@@ -27,19 +27,20 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """ TESTCASE """
-    """ to test the function for following inputs """
+    """ Class for Testing Get Json """
+
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
-        ("http://holberton.io", {"payload": False}),
+        ("http://holberton.io", {"payload": False})
     ])
-    @patch('utils.get_json')
-    def test_get_json(self, test_url, test_payload, mock_get):
-        """ method to test that utils.get_json returns the expected result """
-        mock_get.return_value.json.return_value = test_payload
-        result = get_json(test_url)
-        self.assertEqual(result, test_payload)
-
+    def test_get_json(self, test_url, test_payload):
+        """ Test that utils.get_json returns the expected result."""
+        config = {'return_value.json.return_value': test_payload}
+        patcher = patch('requests.get', **config)
+        mock = patcher.start()
+        self.assertEqual(get_json(test_url), test_payload)
+        mock.assert_called_once()
+        patcher.stop()
 
 class TestMemoize(unittest.TestCase):
     """ TESTCASSE """
