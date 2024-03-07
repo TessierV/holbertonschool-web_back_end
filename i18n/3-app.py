@@ -5,6 +5,7 @@ from flask_babel import Babel, gettext
 
 app = Flask(__name__)
 babel = Babel(app)
+""" test """
 
 
 class Config:
