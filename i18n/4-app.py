@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" Basic Flask app """
+"""Basic Flask app"""
+
 from flask import Flask, render_template, request
 from flask_babel import Babel, gettext
 
@@ -8,16 +9,18 @@ babel = Babel(app)
 
 
 class Config:
-    """ Config """
+    """Config"""
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
 app.config.from_object(Config)
 
 
 @babel.localeselector
 def get_locale():
-    """ locale selector """
+    """Locale selector"""
     if request.args.get('locale') in app.config['LANGUAGES']:
         return request.args.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
@@ -25,7 +28,7 @@ def get_locale():
 
 @app.route('/')
 def root():
-    """ basic Flask app """
+    """Basic Flask app"""
     return render_template('4-index.html')
 
 
