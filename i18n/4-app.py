@@ -17,18 +17,17 @@ class Config:
 app.config.from_object(Config)
 
 
-@app.route('/')
-def root():
-    """ basic Flask app """
-    return render_template('4-index.html')
-
-
 @babel.localeselector
 def get_locale():
     """ locale selector """
     if request.args.get('locale') in app.config['LANGUAGES']:
         return request.args.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+@app.route('/')
+def root():
+    """ basic Flask app """
+    return render_template('4-index.html')
 
 
 if __name__ == "__main__":
