@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Basic Flask app """
-from flask import Flask, render_template, g, request
+
+from flask import Flask, render_template, request
 from flask_babel import Babel, gettext
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ def get_locale():
     """ locale selector """
     if 'locale' in request.args and request.args['locale'] in app.config['LANGUAGES']:
         return request.args['locale']
+
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
