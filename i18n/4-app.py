@@ -21,10 +21,10 @@ app.config.from_object(Config)
 @babel.localeselector
 def get_locale():
     """ Locale selector """
-    if request.args.get('locale') in app.config['LANGUAGES']:
-        return request.args.get('locale')
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
+    requested_locale = request.args.get('locale')
+    if requested_locale in app.config['LANGUAGES']:
+        return requested_locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')

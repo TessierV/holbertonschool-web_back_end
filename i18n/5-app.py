@@ -6,6 +6,7 @@ from flask_babel import Babel, gettext
 
 app = Flask(__name__)
 babel = Babel(app)
+
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
@@ -22,36 +23,34 @@ class Config:
 
 app.config.from_object(Config)
 
-
-@babel.localeselector
+@babel.locale_selector
 def get_locale():
     """ Locale selector """
-    if request.args.get('locale') in app.config['LANGUAGES']:
-        return request.args.get('locale')
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
+    requested_locale = request.args.get('locale')
+    if requested_locale in app.config['LANGUAGES']:
+        return requested_locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 def get_user():
-    """ get user """
+    """ Get user """
     try:
-        userId = request.args.get('login_as')
-        return users[int(userId)]
-    except Exception:
+        user_id = request.args.get('login_as')
+        return users.get(int(user_id))
+    except (ValueError, TypeError):
         return None
 
 
 @app.before_request
 def before_request():
-    """ before request  """
+    """ Before request """
     g.user = get_user()
 
 
 @app.route('/')
 def root():
     """ Basic Flask app """
-    return render_template('4-index.html')
-
+    return render_template('5-index.html', username=g.user['name'] if g.user else None)
 
 if __name__ == "__main__":
     app.run()
