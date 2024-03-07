@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login Emulation</title>
+</head>
+<body>
+    <h1>Welcome to the Flask App</h1>
+    <p>
+        {% if username %}
+            {{ gettext("You are logged in as %(username)s.", username=username) }}
+        {% else %}
+            {{ gettext("You are not logged in.") }}
+        {% endif %}
+    </p>
+</body>
+</html>
