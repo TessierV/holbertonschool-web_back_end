@@ -23,7 +23,8 @@ def get_locale():
     """Locale selector"""
     if request.args.get('locale') in app.config['LANGUAGES']:
         return request.args.get('locale')
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    else:
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
