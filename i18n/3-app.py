@@ -4,7 +4,7 @@ from flask import Flask, render_template, g, request
 from flask_babel import Babel, gettext
 
 app = Flask(__name__)
-babel = Babel(app, extensions=['jinja2.ext.autoescape', 'jinja2.ext.with_'])
+babel = Babel(app)
 
 
 class Config:
