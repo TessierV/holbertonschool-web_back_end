@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-""" Basic Flask app """
-
+""" Basic Flask app with user login emulation """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, gettext
 
 app = Flask(__name__)
 babel = Babel(app)
+
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
@@ -13,44 +13,30 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
-class Config:
-    """ Config """
-    LANGUAGES = ['en', 'fr']
-    BABEL_DEFAULT_LOCALE = 'en'
-    BABEL_DEFAULT_TIMEZONE = 'UTC'
+def get_user(user_id):
+    """ Get user information based on user ID """
+    return users.get(user_id)
 
-
-app.config.from_object(Config)
-
+@app.before_request
+def before_request():
+    """ Function to be executed before all other functions """
+    user_id = int(request.args.get('login_as', 0))
+    g.user = get_user(user_id)
 
 @babel.localeselector
 def get_locale():
     """ Locale selector """
-    if request.args.get('locale') in app.config['LANGUAGES']:
-        return request.args.get('locale')
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-def get_user():
-    """ returns a user """
-    try:
-        userId = request.args.get('login_as')
-        return users[int(userId)]
-    except Exception:
-        return None
-
-@app.before_request
-def before_request():
-    """ before  """
-    g.user = get_user()
-
+    if g.user:
+        return g.user['locale']
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 @app.route('/')
-def root():
-    """ Basic Flask app """
-    return render_template('4-index.html')
-
+def index():
+    """ Display welcome message based on login status """
+    if g.user:
+        return render_template('5-index.html', username=g.user['name'])
+    else:
+        return render_template('5-index.html', username=None)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
