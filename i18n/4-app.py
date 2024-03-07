@@ -12,8 +12,6 @@ class Config:
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
-
-
 app.config.from_object(Config)
 
 
@@ -23,6 +21,7 @@ def get_locale():
     if request.args.get('locale') in app.config['LANGUAGES']:
         return request.args.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 @app.route('/')
 def root():
