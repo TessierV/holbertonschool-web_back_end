@@ -32,11 +32,13 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-def get_user():
+def get_user() -> Dict:
     """ Get user """
     try:
         user_id = request.args.get('login_as')
-        return users.get(int(user_id))
+        if user_id is not None:
+            user_id = int(user_id)
+            return users.get(user_id)
     except (ValueError, TypeError):
         return None
 
@@ -44,9 +46,7 @@ def get_user():
 @app.before_request
 def before_request():
     """ Before request """
-    user = get_user()
-    if user:
-        g.user = user
+    g.user = get_user()
 
 
 @app.route('/')
