@@ -63,6 +63,7 @@ def get_timezone():
     if user is not None:
         return user.timezone
 
+
 @babel.timezoneselector
 def get_timezone() -> str:
     """ time zone """
@@ -71,8 +72,11 @@ def get_timezone() -> str:
             return pytz.timezone(request.args.get("timezone"))
         elif g.user and g.user.get("timezone"):
             return pytz.timezone(g.user.get("timezone"))
-    except Exception:
+        else:
+            return app.config['BABEL_DEFAULT_TIMEZONE']
+    except (pytz.exceptions.UnknownTimeZoneError, Exception):
         return app.config['BABEL_DEFAULT_TIMEZONE']
+
 
 @app.route('/')
 def root():
