@@ -1,3 +1,5 @@
+![image](https://github.com/TessierV/holbertonschool-web_back_end/assets/113889290/fd51e097-74ed-46fb-b32c-f2b7abff3d48)
+
 # Simple API
 
 Simple HTTP API for playing with `User` model.
@@ -52,3 +54,7 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 6. Use Session ID for identifying a User
 7. New view for Session Authentication
 8. Logout
+   
+<br>
+<br/><hr>
+<p align="right">Holberton TOULOUSE</p>
