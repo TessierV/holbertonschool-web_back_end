@@ -55,11 +55,12 @@ def before_request():
 @app.route('/')
 def root():
     """ Basic Flask app """
+
     try:
         guser = g.user['name']
     except Exception:
         guser = None
-    return render_template('5-index.html', username=username)
+    return render_template('5-index.html', username=guser)
 
 
 if __name__ == "__main__":
