@@ -1,3 +1,5 @@
+![image](https://github.com/TessierV/holbertonschool-web_back_end/assets/113889290/e6d6dd5b-480d-4c07-9840-7eee271f7dcd)
+
 # Simple API
 
 Simple HTTP API for playing with `User` model.
@@ -41,6 +43,8 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 - `POST /api/v1/users`: creates a new user (JSON parameters: `email`, `password`, `last_name` (optional) and `first_name` (optional))
 - `PUT /api/v1/users/:id`: updates an user based on the ID (JSON parameters: `last_name` and `first_name`)
 
+# Task
+
 0. Simple-basic-API
 1. Error handler: Unauthorized
 2. Error handler: Forbidden
@@ -53,3 +57,7 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 9. Basic - User credentials
 10. Basic - User object
 11. Basic - Overload current_user - and BOOM!
+
+<br>
+<br/><hr>
+<p align="right">Holberton TOULOUSE</p>
