@@ -15,6 +15,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 class Config:
     """ Config """
     LANGUAGES = ['en', 'fr']
@@ -23,6 +24,7 @@ class Config:
 
 
 app.config.from_object(Config)
+
 
 @babel.localeselector
 def get_locale():
@@ -53,7 +55,12 @@ def before_request():
 @app.route('/')
 def root():
     """ Basic Flask app """
-    return render_template('5-index.html', username=g.user['name'] if g.user else None)
+    try:
+        guser = g.user['name']
+    except Exception:
+        guser = None
+    return render_template('5-index.html', username=username)
+
 
 if __name__ == "__main__":
     app.run()
