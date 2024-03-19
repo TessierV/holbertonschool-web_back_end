@@ -6,14 +6,21 @@ import uuid
 
 
 class Cache:
-    """ class """
+    """A class for caching data in Redis."""
     def __init__(self):
-        """ init """
+        """Initialize the Cache class."""
         self._redis = Redis()
         self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
-        """ store """
+        """Store data in Redis and return the generated key.
+
+        Args:
+            data: The data to be stored in Redis.
+
+        Returns:
+            str: The key generated for the stored data in Redis.
+        """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
