@@ -18,5 +18,6 @@ class Cache:
         self._redis.set(key, data)
         return key
 
+
 if __name__ == '__main__':
     main()
