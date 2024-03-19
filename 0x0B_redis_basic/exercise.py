@@ -3,6 +3,7 @@
 Module for defining a Cache class using Redis.
 """
 from redis.client import Redis
+import redis
 from typing import Union
 import uuid
 
@@ -15,7 +16,7 @@ class Cache:
         """
         Module for defining a Cache class using Redis.
         """
-        self._redis = Redis()
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
