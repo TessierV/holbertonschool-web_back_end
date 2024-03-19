@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
-""" Writing strings to Redis """
+"""
+Module for defining a Cache class using Redis.
+"""
 from redis.client import Redis
 from typing import Union
 import uuid
 
 
 class Cache:
-    """ A class for caching data in Redis. """
+    """
+    Module for defining a Cache class using Redis.
+    """
     def __init__(self):
-        """ Initialize the Cache class. """
+        """
+        Module for defining a Cache class using Redis.
+        """
         self._redis = Redis()
         self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
-        """ Store """
+        """
+        Module for defining a Cache class using Redis.
+        """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
