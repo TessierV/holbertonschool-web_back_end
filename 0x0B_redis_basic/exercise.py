@@ -28,6 +28,9 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Optional[Callable] = None) -> str:
+        """
+        Get
+        """
         value = self._redis.get(key)
         if value is None:
             return None
@@ -36,10 +39,16 @@ class Cache:
         return value
 
     def get_str(self, key: str) -> str:
+        """
+        Get string
+        """
         value = self._redis
         return value.get(key, fn=lambda d: d.decode("utf-8"))
 
     def get_int(self, key: str) -> str:
+        """
+        Get int
+        """
         value = self._redis
         return value.get(key, fn=int)
 
