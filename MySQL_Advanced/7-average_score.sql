@@ -1,3 +1,4 @@
+-- SQL script that creates a stored procedure ComputeAverageScoreForUser
 DELIMITER //
 
 CREATE PROCEDURE ComputeAverageScoreForUser(
