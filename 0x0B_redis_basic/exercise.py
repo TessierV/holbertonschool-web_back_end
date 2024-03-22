@@ -89,6 +89,7 @@ def replay(method: Callable):
     inputList = redis.lrange(inputs, 0, -1)
     outputList = redis.lrange(outputs, 0, -1)
     redis_zipped = list(zip(inputList, outputList))
+
     for a, b in redis_zipped:
         attr, data = a.decode("utf-8"), b.decode("utf-8")
         print("{}(*{}) -> {}".format(key, attr, data))
