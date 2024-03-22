@@ -35,6 +35,23 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable):
+    """ Display the history."""
+    key = method.__qualname__
+    inputs = key + ":inputs"
+    outputs = key + ":outputs"
+    redis = method.__self__._redis
+    count = redis.get(key).decode("utf-8")
+    print("{} was called {} times:".format(key, count))
+    input_list = redis.lrange(inputs, 0, -1)
+    output_list = redis.lrange(outputs, 0, -1)
+    redis_zipped = list(zip(input_list, output_list))
+
+    for a, b in redis_zipped:
+        attr, data = a.decode("utf-8"), b.decode("utf-8")
+        print("{}(*{}) -> {}".format(key, attr, data))
+
+
 class Cache:
     """
     Class Cache.
@@ -76,17 +93,3 @@ class Cache:
 
     def _generate_key(self):
         return str(uuid.uuid4())
-
-
-def replay(method: Callable):
-    """ Method that display the history of calls
-    """
-    r = method.__self__._redis
-    keys = method.__qualname__
-    inputs = r.lrange("{}:inputs".format(keys), 0, -1)
-    outputs = r.lrange("{}:outputs".format(keys), 0, -1)
-    print("{} was called {} times:".format(keys,
-                                           r.get(keys).decode("utf-8")))
-    for i, j in list(zip(inputs, outputs)):
-        print("{}(*{}) -> {}".format(keys, i.decode("utf-8"),
-                                     j.decode("utf-8")))
