@@ -78,7 +78,7 @@ class Cache:
         return str(uuid.uuid4())
 
 
-    def replay(method: Callable):
+def replay(method: Callable):
         """ display the history of calls of a particular function """
         key = method.__qualname__
         inputs = key + ":inputs"
