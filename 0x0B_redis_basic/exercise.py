@@ -36,7 +36,7 @@ def count_calls(method: Callable) -> Callable:
 
 
 def replay(method: Callable):
-    """ Display the history."""
+    """ Display the history. """
     key = method.__qualname__
     inputs = key + ":inputs"
     outputs = key + ":outputs"
