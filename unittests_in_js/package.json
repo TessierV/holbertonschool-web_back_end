@@ -4,12 +4,14 @@
     "description": "Basic test with Mocha and Node assertion library",
     "main": "0-calcul.js",
     "scripts": {
-      "test": "mocha 0-calcul.test.js"
+        "test": "./node_modules/mocha/bin/mocha"
     },
-    "author": "Tessier Vanessa",
-    "license": "MIT",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
     "devDependencies": {
-      "mocha": "^X.X.X",
-      "assert": "^X.X.X"
+        "chai": "^4.2.0",
+        "mocha": "^8.4.0",
+        "sinon": "^9.2.3"
     }
-  }
+}
