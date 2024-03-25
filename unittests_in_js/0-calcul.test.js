@@ -12,4 +12,9 @@ describe('calculateNumber', function() {
     assert.strictEqual(calculateNumber(-1, 3), 2);
     assert.strictEqual(calculateNumber(1, -3), -2);
   });
+  it('should return NaN if one of the arguments is not a number', function() {
+    assert.strictEqual(isNaN(calculateNumber('a', 3)), true);
+    assert.strictEqual(isNaN(calculateNumber(1, 'b')), true);
+    assert.strictEqual(isNaN(calculateNumber('foo', 'bar')), true);
+  });
 });
