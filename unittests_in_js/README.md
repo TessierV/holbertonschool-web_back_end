@@ -9,5 +9,3 @@
 8. Basic Integration testing
 9. Regex integration testing
 10. Deep equality & Post integration testing
-
-``npm install --save-dev mocha assert``
