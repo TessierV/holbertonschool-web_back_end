@@ -11,4 +11,3 @@
 10. Deep equality & Post integration testing
 
 ``npm install --save-dev mocha assert``
-
