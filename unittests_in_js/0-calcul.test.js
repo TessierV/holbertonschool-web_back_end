@@ -1,4 +1,3 @@
-// Test Summ
 module.exports = calculateNumber;
 
 const assert = require('assert');
