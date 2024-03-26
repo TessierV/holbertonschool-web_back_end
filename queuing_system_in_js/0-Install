@@ -1,0 +1,4 @@
+src/redis-server &
+redis-cli ping
+redis-cli set Holberton School
+redis-cli get Holberton
