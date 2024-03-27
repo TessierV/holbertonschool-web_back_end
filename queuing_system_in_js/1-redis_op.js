@@ -15,10 +15,8 @@ function setNewSchool(schoolName, value) {
 }
 
 function displaySchoolValue(schoolName) {
-    client.get(schoolName, (error, value) => {
-        if (error) throw error;
-        console.log(value);
-    });
+    const foundValue = client.get(schoolName, redis.print);
+    console.log(foundValue);
 }
 
 displaySchoolValue('Holberton');
