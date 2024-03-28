@@ -9,7 +9,7 @@ from functools import wraps
 
 
 def call_history(method: Callable) -> Callable:
-    """ store the history of inputs and outputs for a particular function """
+    """ store the history """
     key = method.__qualname__
     inputs = key + ":inputs"
     outputs = key + ":outputs"
@@ -25,7 +25,7 @@ def call_history(method: Callable) -> Callable:
 
 
 def count_calls(method: Callable) -> Callable:
-    """ to count how many times methods of the Cache class are called """
+    """ to count how many times methods """
     key = method.__qualname__
     @wraps(method)
     def wrapper(self, *args, **kwds):
